@@ -85,8 +85,9 @@ final class Clashers{
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 		$json =  curl_exec($ch);
+		curl_close($ch);
+
 		$json = mb_convert_encoding($json, 'UTF-8', 'EUC-JP');
 		return json_decode($json, true);
-		curl_close($ch);
 	}
 }
