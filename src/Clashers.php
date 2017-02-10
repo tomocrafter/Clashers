@@ -55,7 +55,7 @@ final class Clashers{
 				if($id === null){
 					throw new ClashersException('Not fount id', 0);
 				}
-				if($id === null){
+				if($rank === null){
 					throw new ClashersException('Not fount rank', 0);
 				}
 				$url = '/' . $id . '/rankings/' . $rank;
