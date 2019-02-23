@@ -86,7 +86,6 @@ public class ClanSearchParametersBuilder implements ParametersBuilder {
 		boolean hasFilter = false;
 		try {
 			for (Field field : this.getClass().getDeclaredFields()) {
-				System.out.println(field.getName());
 				Object value = field.get(this);
 				if (value == null) {
 					continue;

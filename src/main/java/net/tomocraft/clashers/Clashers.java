@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Clashers {
 
-	public static final Gson GSON = new GsonBuilder().create();
+	private static final Gson GSON = new GsonBuilder().create();
 
 	private final Configuration conf;
 	private final HttpClient client;
@@ -24,7 +24,7 @@ public class Clashers {
 			throw new NullPointerException("Configuration cannot be null");
 		}
 		this.conf = conf;
-		this.client = new HttpClient(conf);
+		this.client = new HttpClient(conf, GSON);
 	}
 
 	public List<Clan> searchClans(ClanSearchParametersBuilder parametersBuilder) throws FilterNotFoundException, NotFoundException, BadRequestException, AuthenticationException, UnknownErrorException, RateLimitExceededException {

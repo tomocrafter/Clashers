@@ -1,5 +1,6 @@
 package net.tomocraft.clashers.http;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import net.tomocraft.clashers.Clashers;
 import net.tomocraft.clashers.conf.Configuration;
@@ -14,10 +15,12 @@ import java.nio.charset.StandardCharsets;
 
 public class HttpClient {
 
-	private Configuration conf;
+	private final Gson gson;
+	private final Configuration conf;
 
-	public HttpClient(Configuration conf) {
+	public HttpClient(Configuration conf, Gson gson) {
 		this.conf = conf;
+		this.gson = gson;
 	}
 
 	private JsonObject get(String path) throws
@@ -36,7 +39,7 @@ public class HttpClient {
 			int statusCode = connection.getResponseCode();
 
 			final InputStream input = (statusCode < 300) ? connection.getInputStream() : connection.getErrorStream();
-			JsonObject json = Clashers.GSON.fromJson(new InputStreamReader(input, StandardCharsets.UTF_8), JsonObject.class);
+			JsonObject json = this.gson.fromJson(new InputStreamReader(input, StandardCharsets.UTF_8), JsonObject.class);
 
 			switch (statusCode) {
 				case 400:
