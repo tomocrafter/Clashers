@@ -6,7 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.net.URLEncoder;
 
-@SuppressWarnings("FieldCanBeLocal")
+@SuppressWarnings({"FieldCanBeLocal", "unused"})
 public class ClanSearchParametersBuilder implements ParametersBuilder {
 	@FilterParameter
 	private String name;
@@ -91,19 +91,13 @@ public class ClanSearchParametersBuilder implements ParametersBuilder {
 					continue;
 				}
 
-				final String parameterName;
-
 				final boolean isFilter = field.getAnnotation(FilterParameter.class) != null;
 				if (!hasFilter && isFilter) {
 					hasFilter = true;
 				}
 
 				ParameterName annotation = field.getAnnotation(ParameterName.class);
-				if (annotation != null) {
-					parameterName = annotation.value();
-				} else {
-					parameterName = field.getName();
-				}
+				final String parameterName = annotation != null ? annotation.value() : field.getName();
 
 				try {
 					builder

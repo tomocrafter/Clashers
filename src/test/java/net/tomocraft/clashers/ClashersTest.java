@@ -1,5 +1,6 @@
 package net.tomocraft.clashers;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import net.tomocraft.clashers.conf.ConfigurationBuilder;
 import net.tomocraft.clashers.http.ClanSearchParametersBuilder;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,14 +12,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ClashersTest {
 
-	private static final String TOKEN = "";
+	private static final String TOKEN = Dotenv.load().get("TOKEN");
 
-	Clashers clashers;
+	private Clashers clashers;
 
 	@Test
 	public void testSearchClans() throws Exception {
 		List<Clan> clans = clashers.searchClans(new ClanSearchParametersBuilder().setName("Light"));
-		clans.forEach(clan -> System.out.println(clan.getName()));
+
+		Clan clan = clans.get(0);
+		System.out.println(clan.getJson());
 		assertTrue(true);
 	}
 

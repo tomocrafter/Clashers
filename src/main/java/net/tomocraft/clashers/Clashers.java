@@ -29,11 +29,10 @@ public class Clashers {
 
 	public List<Clan> searchClans(ClanSearchParametersBuilder parametersBuilder) throws FilterNotFoundException, NotFoundException, BadRequestException, AuthenticationException, UnknownErrorException, RateLimitExceededException {
 		JsonObject response = client.get("clans", parametersBuilder);
+
 		JsonArray items = response.getAsJsonArray("items");
 		final List<Clan> clans = new ArrayList<>();
-		for (int i = 0; i < items.size(); i++) {
-			clans.add(new Clan(items.get(i).getAsJsonObject()));
-		}
+		items.forEach(item -> clans.add(new Clan(item.getAsJsonObject())));
 		return clans;
 	}
 }
